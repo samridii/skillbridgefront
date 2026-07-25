@@ -17,32 +17,32 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Home />} />
         <Route path="/gigs" element={<Gigs />} />
+        <Route path="/gigs/:id" element={<GigDetail />} />
         <Route
-  path="/verify"
-  element={
-    <ProtectedRoute>
-      <VerifyIdentity />
-    </ProtectedRoute>
-  }
-/>
+          path="/verify"
+          element={
+            <ProtectedRoute>
+              <VerifyIdentity />
+            </ProtectedRoute>
+          }
+        />
         <Route
-  path="/admin"
-  element={
-    <ProtectedRoute allowedRoles={['admin']}>
-      <AdminDashboard />
-    </ProtectedRoute>
-  }
-/>
+          path="/admin"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/gigs/new"
+          element={
+            <ProtectedRoute allowedRoles={['verified', 'admin']}>
+              <CreateGig />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
-      <Route path="/gigs/:id" element={<GigDetail />} />
-<Route
-  path="/gigs/new"
-  element={
-    <ProtectedRoute allowedRoles={['verified', 'admin']}>
-      <CreateGig />
-    </ProtectedRoute>
-  }
-/>
     </Layout>
   );
 }
