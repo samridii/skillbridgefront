@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import ReCAPTCHA from 'react-google-recaptcha';
 import { register } from '../api/authApi';
 
 const Register = () => {
   const [form, setForm] = useState({ universityEmail: '', password: '', fullName: '' });
+  const [captchaToken, setCaptchaToken] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -16,9 +18,15 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    if (!captchaToken) {
+      setError('Please complete the CAPTCHA');
+      return;
+    }
+
     setLoading(true);
     try {
-      await register(form);
+      await register({ ...form, captchaToken });
       setSuccess(true);
       setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
@@ -56,6 +64,13 @@ const Register = () => {
             <small style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>
               At least 10 characters, with uppercase, lowercase, number, and symbol
             </small>
+          </div>
+          <div style={{ marginBottom: '1rem' }}>
+            <ReCAPTCHA
+              sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+              onChange={(token) => setCaptchaToken(token)}
+              theme="dark"
+            />
           </div>
           {error && <p className="error-text" role="alert">{error}</p>}
           <button type="submit" disabled={loading} style={{ width: '100%' }}>
