@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { getPendingVerifications, approveUser, rejectUser, getDisputeQueue, resolveDispute } from '../api/adminApi';
+import { getPendingVerifications, approveUser, rejectUser, getDisputeQueue, resolveDispute, getVerificationDoc } from '../api/adminApi';
 
 const AdminDashboard = () => {
   const [pending, setPending] = useState([]);
   const [disputes, setDisputes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [actionError, setActionError] = useState('');
+  const [docPreview, setDocPreview] = useState(null);
 
   const loadData = async () => {
     setLoading(true);
@@ -57,12 +58,32 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleViewDoc = async (userId) => {
+    setActionError('');
+    try {
+      const url = await getVerificationDoc(userId);
+      setDocPreview(url);
+    } catch (err) {
+      setActionError('Failed to load document');
+    }
+  };
+
   if (loading) return <p>Loading admin dashboard...</p>;
 
   return (
     <div className="fade-up">
       <h1>Admin dashboard</h1>
       {actionError && <p className="error-text">{actionError}</p>}
+
+      {docPreview && (
+        <div className="card" style={{ marginBottom: '2.5rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+            <h3 style={{ margin: 0 }}>Document preview</h3>
+            <button className="secondary" onClick={() => setDocPreview(null)}>Close</button>
+          </div>
+          <img src={docPreview} alt="Uploaded student ID" style={{ maxWidth: '100%', borderRadius: '8px' }} />
+        </div>
+      )}
 
       <section style={{ marginBottom: '2.5rem' }}>
         <h2>Pending verifications</h2>
@@ -77,6 +98,7 @@ const AdminDashboard = () => {
                 </div>
               </div>
               <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <button className="secondary" onClick={() => handleViewDoc(u._id)}>View ID</button>
                 <button onClick={() => handleApprove(u._id)}>Approve</button>
                 <button className="secondary" onClick={() => handleReject(u._id)}>Reject</button>
               </div>
