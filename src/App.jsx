@@ -5,6 +5,7 @@ import Register from './pages/Register';
 import Gigs from './pages/Gigs';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+import VerifyIdentity from './pages/VerifyIdentity';
 
 function App() {
   return (
@@ -14,6 +15,14 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Home />} />
         <Route path="/gigs" element={<Gigs />} />
+        <Route
+  path="/verify"
+  element={
+    <ProtectedRoute>
+      <VerifyIdentity />
+    </ProtectedRoute>
+  }
+/>
         <Route
   path="/admin"
   element={
