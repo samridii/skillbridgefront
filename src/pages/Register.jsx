@@ -29,32 +29,43 @@ const Register = () => {
   };
 
   if (success) {
-    return <p>Account created. Your account is pending verification. Redirecting to login...</p>;
+    return (
+      <div className="fade-up" style={{ maxWidth: '400px', margin: '4rem auto', textAlign: 'center' }}>
+        <div className="stamp" style={{ margin: '0 auto 1rem' }}>✓</div>
+        <p>Account created. Your account is pending verification. Redirecting to login...</p>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Full Name</label>
-          <input name="fullName" value={form.fullName} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>University Email</label>
-          <input name="universityEmail" type="email" value={form.universityEmail} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Password</label>
-          <input name="password" type="password" value={form.password} onChange={handleChange} required minLength={10} />
-          <small>At least 10 characters, with uppercase, lowercase, number, and symbol</small>
-        </div>
-        {error && <p role="alert">{error}</p>}
-        <button type="submit" disabled={loading}>
-          {loading ? 'Creating account...' : 'Register'}
-        </button>
-      </form>
-      <p>Already have an account? <Link to="/login">Login</Link></p>
+    <div className="fade-up" style={{ maxWidth: '400px', margin: '3rem auto' }}>
+      <h1 style={{ textAlign: 'center' }}>Register</h1>
+      <div className="card">
+        <form onSubmit={handleSubmit}>
+          <div style={{ marginBottom: '1rem' }}>
+            <label>Full name</label>
+            <input name="fullName" value={form.fullName} onChange={handleChange} required />
+          </div>
+          <div style={{ marginBottom: '1rem' }}>
+            <label>University email</label>
+            <input name="universityEmail" type="email" value={form.universityEmail} onChange={handleChange} required />
+          </div>
+          <div style={{ marginBottom: '1rem' }}>
+            <label>Password</label>
+            <input name="password" type="password" value={form.password} onChange={handleChange} required minLength={10} />
+            <small style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>
+              At least 10 characters, with uppercase, lowercase, number, and symbol
+            </small>
+          </div>
+          {error && <p className="error-text" role="alert">{error}</p>}
+          <button type="submit" disabled={loading} style={{ width: '100%' }}>
+            {loading ? 'Creating account...' : 'Register'}
+          </button>
+        </form>
+      </div>
+      <p style={{ marginTop: '1rem', textAlign: 'center' }}>
+        Already have an account? <Link to="/login" style={{ color: 'var(--lime)' }}>Login</Link>
+      </p>
     </div>
   );
 };
