@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import ReCAPTCHA from 'react-google-recaptcha';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { login } from '../api/authApi';
 import { useAuth } from '../context/AuthContext';
 
@@ -53,9 +53,9 @@ const Login = () => {
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
           <div style={{ marginBottom: '1rem' }}>
-            <ReCAPTCHA
-              sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-              onChange={(token) => setCaptchaToken(token)}
+            <HCaptcha
+              sitekey={import.meta.env.VITE_HCAPTCHA_SITE_KEY}
+              onVerify={(token) => setCaptchaToken(token)}
               theme="dark"
             />
           </div>
