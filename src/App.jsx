@@ -9,6 +9,8 @@ import VerifyIdentity from './pages/VerifyIdentity';
 import CreateGig from './pages/CreateGig';
 import GigDetail from './pages/GigDetail';
 import OrderDetail from './pages/OrderDetail';
+import MfaSetup from './pages/MfaSetup';
+import MfaVerify from './pages/MfaVerify';
 
 function App() {
   return (
@@ -48,6 +50,15 @@ function App() {
   element={
     <ProtectedRoute>
       <OrderDetail />
+    </ProtectedRoute>
+  }
+/>
+<Route path="/mfa-verify" element={<MfaVerify />} />
+<Route
+  path="/mfa-setup"
+  element={
+    <ProtectedRoute>
+      <MfaSetup />
     </ProtectedRoute>
   }
 />

@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getOrder, confirmOrder } from '../api/ordersApi';
 import { useAuth } from '../context/AuthContext';
+import OrderMessages from '../components/OrderMessages';
+import LeaveReview from '../components/LeaveReview';
+import RaiseDispute from '../components/RaiseDispute';
 
 const STATUS_LABELS = {
   pending: 'Pending',
@@ -81,7 +84,17 @@ const OrderDetail = () => {
       {myConfirmed && order.status === 'in_progress' && (
         <p>Waiting for the other party to confirm.</p>
       )}
+      <OrderMessages orderId={order._id} />
+
+      {order.status === 'released' && isBuyer && (
+        <LeaveReview orderId={order._id} onDone={loadOrder} />
+      )}
+
+      {(order.status === 'in_progress' || order.status === 'released') && (
+        <RaiseDispute orderId={order._id} onDone={loadOrder} />
+      )}
     </div>
+    
   );
 };
 
