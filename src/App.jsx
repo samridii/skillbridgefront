@@ -8,6 +8,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import VerifyIdentity from './pages/VerifyIdentity';
 import CreateGig from './pages/CreateGig';
 import GigDetail from './pages/GigDetail';
+import OrderDetail from './pages/OrderDetail';
 
 function App() {
   return (
@@ -42,6 +43,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+  path="/orders/:id"
+  element={
+    <ProtectedRoute>
+      <OrderDetail />
+    </ProtectedRoute>
+  }
+/>
       </Routes>
     </Layout>
   );
