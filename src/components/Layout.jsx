@@ -25,7 +25,10 @@ const Layout = ({ children }) => {
               {user.role === 'unverified' ? (
                 <Link to="/verify" style={{ fontSize: '0.85rem', color: 'var(--lime)' }}>Get verified</Link>
               ) : (
-                <span className="stamp">✓</span>
+                <>
+                  <span className="stamp">✓</span>
+                  <Link to="/gigs/new" style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Post a gig</Link>
+                </>
               )}
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                 {user.role}

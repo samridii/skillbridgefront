@@ -6,6 +6,8 @@ import Gigs from './pages/Gigs';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import VerifyIdentity from './pages/VerifyIdentity';
+import CreateGig from './pages/CreateGig';
+import GigDetail from './pages/GigDetail';
 
 function App() {
   return (
@@ -32,6 +34,15 @@ function App() {
   }
 />
       </Routes>
+      <Route path="/gigs/:id" element={<GigDetail />} />
+<Route
+  path="/gigs/new"
+  element={
+    <ProtectedRoute allowedRoles={['verified', 'admin']}>
+      <CreateGig />
+    </ProtectedRoute>
+  }
+/>
     </Layout>
   );
 }
