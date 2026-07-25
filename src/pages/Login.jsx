@@ -32,33 +32,35 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>University Email</label>
-          <input
-            type="email"
-            value={universityEmail}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {error && <p role="alert">{error}</p>}
-        <button type="submit" disabled={loading}>
-          {loading ? 'Logging in...' : 'Login'}
-        </button>
-      </form>
-      <p>Don't have an account? <Link to="/register">Register</Link></p>
+    <div style={{ maxWidth: '400px', margin: '3rem auto' }}>
+      <h1>Log in</h1>
+      <div className="card">
+        <form onSubmit={handleSubmit}>
+          <div style={{ marginBottom: '1rem' }}>
+            <label>University email</label>
+            <input
+              type="email"
+              value={universityEmail}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div style={{ marginBottom: '1rem' }}>
+            <label>Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          {error && <p className="error-text" role="alert">{error}</p>}
+          <button type="submit" disabled={loading} style={{ width: '100%' }}>
+            {loading ? 'Logging in...' : 'Log in'}
+          </button>
+        </form>
+      </div>
+      <p style={{ marginTop: '1rem' }}>Don't have an account? <Link to="/register">Register</Link></p>
     </div>
   );
 };
