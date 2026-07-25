@@ -67,8 +67,10 @@ const Register = () => {
           </div>
           <div style={{ marginBottom: '1rem' }}>
             <HCaptcha
+              key="register-captcha"
               sitekey={import.meta.env.VITE_HCAPTCHA_SITE_KEY}
               onVerify={(token) => setCaptchaToken(token)}
+              onExpire={() => setCaptchaToken(null)}
               theme="dark"
             />
           </div>
